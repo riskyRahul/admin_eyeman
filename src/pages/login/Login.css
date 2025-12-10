@@ -1,0 +1,353 @@
+/* ----- Login Page ----- */
+.login-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.login-section.admin .login-box {
+    height: auto;
+}
+
+.login-section.admin .login-box.admin-login .left-box form .input-group.profile {
+    border: 1px dashed #040273;
+    background-color: rgb(255, 255, 255) !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+}
+
+.login-section.admin .login-box.admin-login .left-box form .input-group.profile input {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.login-section.admin .login-box.admin-login .left-box form .input-group.profile .logo {
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+
+.login-section.admin .login-box.admin-login .left-box form .input-group.profile .logo .logo-img {
+    border-radius: 6px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.login-box {
+    border-radius: 30px;
+    border: 1px solid #CDCDCD;
+    box-shadow: 0px 0px 20px 5px #3131310F;
+}
+
+.login-box .left-box {
+    padding: 40px;
+    min-width: 550px;
+    max-width: 550px;
+    width: 100%;
+}
+
+.login-box .left-box .header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-box .left-box .header-text .logo {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 2.13px 21.25px 0px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    padding: 13px
+}
+
+.login-box .left-box .header-text h4 {
+    font-family: var(--outfit);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--black-text);
+}
+
+.login-box .left-box .header-text h4 span {
+    color: var(--main-btn-color);
+}
+
+.login-box .left-box .header-text p {
+    font-family: var(--outfit);
+    color: #313131;
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.login-box .left-box form .form-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--black-text);
+    margin-bottom: 8px;
+}
+
+.login-box .left-box form .form-control {
+    padding: 20px;
+    padding-left: 55px;
+    color: var(--black-text);
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 16px;
+    border: 1px solid #CDCDCD;
+    box-shadow: 0px 0px 20px 5px #3131310F;
+    width: 100%;
+}
+
+.login-box .left-box form .password-field {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.login-box .left-box form .form-control,
+.login-box .left-box form .form-control:focus {
+    border: 1px solid #CDCDCD;
+}
+
+.login-box .left-box form .form-control::placeholder {
+    color: #676767 !important;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.login-box .left-box form .login-btn {
+    padding: 12px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 17px;
+    color: var(--white-color);
+    background-color: var(--main-btn-color);
+    transition: opacity 0.3s ease;
+}
+
+.login-box .left-box .forget-paasword {
+    color: #000000;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.login-box .left-box .forget-paasword p span {
+    cursor: pointer;
+}
+
+.login-box .left-box .header-text p.otp-p {
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.login-box .left-box .header-text p.otp-p span {
+    color: #89888F;
+    font-weight: 900;
+}
+
+.login-box .left-box .resent-otp {
+    color: #000000;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.login-box .left-box .resent-otp .resent-btn {
+    cursor: pointer;
+    background-color: transparent;
+    color: #000000;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.login-box .left-box .resent-otp .resent-btn:hover {
+    text-decoration: none;
+}
+
+.login-box .left-box .resent-otp .resent-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.login-box .left-box .back-login {
+    color: #89888F;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.login-box .left-box .back-login p span {
+    cursor: pointer;
+    color: #000000;
+    text-decoration: underline;
+}
+
+.login-box .left-box .back-login p span:hover {
+    text-decoration: none;
+}
+
+.login-box .left-box .form-navigate {
+    color: var(--white-text);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.login-box .left-box .form-navigate p span {
+    color: #4D3EE1;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.login-box .right-box {
+    background: #2684FC;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #d1d1d1;
+}
+
+.login-box .right-box .glass-effect {
+    position: relative;
+    background: inherit;
+    width: 65%;
+    height: 70%;
+    border: .5px solid #FFFFFF;
+    z-index: 1;
+}
+
+.login-box .right-box .glass-effect::before {
+    content: '';
+    position: absolute;
+    background: #DFEDFF;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: -20px;
+    border-radius: 16px;
+    box-shadow: inset 0 0 500px rgba(255, 255, 255, .4);
+    z-index: -1;
+}
+
+.login-box .right-box .glass-effect h2 {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 2.7rem;
+    position: relative;
+}
+
+.login-box .right-box .glass-effect h2::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -9px;
+    transform: translate(-9px, 2px);
+    width: 5px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.login-box .right-box .glass-effect h5 {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 24px;
+    margin-left: -18px;
+}
+
+.login-box .left-box .header-text .login-logo {
+    width: 100%;
+    max-width: 170px;
+    object-fit: cover;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .input-icon img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.input-with-icon .form-control {
+    padding-left: 52px;
+    padding-right: 48px;
+}
+
+/* right eye button */
+.password-field .toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: #444;
+    z-index: 3;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.password-field .toggle-eye:focus {
+    outline: none;
+}
+
+@media (max-width: 1400px) {
+    .login-box .right-box .glass-effect h2 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 991px) {
+    .login-box {
+        height: auto;
+    }
+
+    .login-box .left-box {
+        padding: 50px 60px;
+    }
+
+    .login-box .right-box {
+        display: none;
+    }
+
+    .login-box .left-box form .form-control,
+    .login-box .left-box form .login-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575px) {
+    .login-box .left-box {
+        padding: 50px 30px;
+    }
+}
+
+/* password-input show & hide  */
+@media (min-width: 992px) {
+    .login-box .left-box form .input-group {
+        width: 100%;
+    }
+}
