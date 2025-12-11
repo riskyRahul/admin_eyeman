@@ -622,3 +622,17 @@ export const reqtoSuperAdminEditFaqs = createAsyncThunk(
         }
     }
 );
+
+// reqtoSuperAdminGetHelpCenter
+export const reqtoSuperAdminGetHelpCenter = createAsyncThunk("reqtoSuperAdminGetHelpCenter", async (data, { rejectWithValue }) => {
+    try {
+        const res = await Axios.get(apiendpoints.GetHelpCenter, authHeaders());
+        if (res.data?.status || res.data?.success) {
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+    } catch (err) {
+        throw err
+    }
+});

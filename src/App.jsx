@@ -23,6 +23,7 @@ import SuperAdmincategoryRequest from './pages/super-admin/eventCategory/Categor
 import SuperAdminTeamRole from "./pages/super-admin/teamRole/TeamRole"
 import SuperAdminFaq from "./pages/super-admin/faq/Faq"
 import SuperAdminPolicies from "./pages/super-admin/policies/Policies"
+import SuperAdminHelpCenter from "./pages/super-admin/help/HelpCenter"
 
 function App() {
 
@@ -98,6 +99,12 @@ function App() {
           <Route path='/superadmin/policies' element={
             <ProtectedRoute type="superadmin">
               <SuperAdminPolicies />
+            </ProtectedRoute>
+          } />
+
+          <Route path='/superadmin/help-center' element={
+            <ProtectedRoute type="superadmin">
+              <SuperAdminHelpCenter />
             </ProtectedRoute>
           } />
 

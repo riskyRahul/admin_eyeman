@@ -7,6 +7,7 @@ import Intake from "../../assets/images/intake.svg";
 import TeamRole from "../../assets/images/team-role.svg";
 import faq from "../../assets/images/faq.svg";
 import Policies from "../../assets/images/policies.svg";
+import help_center from "../../assets/images/help_center.svg";
 import { DashboardIcon, EyeManVoyagerIcon } from "../../assets/IconsList";
 import { CampaignIcon } from './../../assets/IconsList';
 // Sidebar
@@ -82,6 +83,17 @@ export const SidebarData = {
         />
       ),
       route: "/superadmin/policies",
+    },
+    {
+      label: "Help Center",
+      icon: (
+        <img
+          src={help_center}
+          alt="help_center"
+          className="img-fluid"
+        />
+      ),
+      route: "/superadmin/help-center",
     },
   ]
 };

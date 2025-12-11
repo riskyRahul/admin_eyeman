@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reqtoSuperAdminAddEventCategory, reqtoSuperAdminAddFaqs, reqtoSuperAdminAddLocation, reqtoSuperAdminAddPlace, reqtoSuperAdminAddPolicy, reqtoSuperAdminCountriesWiseCountry, reqtoSuperAdminDashboard, reqtoSuperAdminDeleteEventCategory, reqtoSuperAdminDeleteFaqs, reqtoSuperAdminDeleteLocation, reqtoSuperAdminDeletePalce, reqtoSuperAdminDeletePolicy, reqtoSuperAdminDeleteUser, reqtoSuperAdminDetailUser, reqtoSuperAdminEditEventCategory, reqtoSuperAdminEditFaqs, reqtoSuperAdminEditLocation, reqtoSuperAdminEditPalce, reqtoSuperAdminEditPolicy, reqtoSuperAdminGetCategoryRequest, reqtoSuperAdminGetContinents, reqtoSuperAdminGetCountries, reqtoSuperAdminGeteventCategory, reqtoSuperAdminGetFaqs, reqtoSuperAdminGetLocation, reqtoSuperAdminGetPlace, reqtoSuperAdminGetPolicy, reqtoSuperAdminGetVoyager, reqtoSuperAdminStatusLocations, reqtoSuperAdminStatusPlaces, reqtoSuperAdminStatusUser, reqtoSuperAdminUpdateCategoryRequest } from "../../services/superadmin/SuperAdminServices";
+import { reqtoSuperAdminAddEventCategory, reqtoSuperAdminAddFaqs, reqtoSuperAdminAddLocation, reqtoSuperAdminAddPlace, reqtoSuperAdminAddPolicy, reqtoSuperAdminCountriesWiseCountry, reqtoSuperAdminDashboard, reqtoSuperAdminDeleteEventCategory, reqtoSuperAdminDeleteFaqs, reqtoSuperAdminDeleteLocation, reqtoSuperAdminDeletePalce, reqtoSuperAdminDeletePolicy, reqtoSuperAdminDeleteUser, reqtoSuperAdminDetailUser, reqtoSuperAdminEditEventCategory, reqtoSuperAdminEditFaqs, reqtoSuperAdminEditLocation, reqtoSuperAdminEditPalce, reqtoSuperAdminEditPolicy, reqtoSuperAdminGetCategoryRequest, reqtoSuperAdminGetContinents, reqtoSuperAdminGetCountries, reqtoSuperAdminGeteventCategory, reqtoSuperAdminGetFaqs, reqtoSuperAdminGetHelpCenter, reqtoSuperAdminGetLocation, reqtoSuperAdminGetPlace, reqtoSuperAdminGetPolicy, reqtoSuperAdminGetVoyager, reqtoSuperAdminStatusLocations, reqtoSuperAdminStatusPlaces, reqtoSuperAdminStatusUser, reqtoSuperAdminUpdateCategoryRequest } from "../../services/superadmin/SuperAdminServices";
 
 const initialState = {
     loader: false,
@@ -39,6 +39,9 @@ const initialState = {
     addPolicyLoader: false,
     editPolicyLoader: false,
     policyList: [],
+
+    helpCenterLoader: false,
+    helpCenterList: [],
 
     eventCategoryList: [],
     eventCategoryLoader: false,
@@ -457,6 +460,20 @@ const SuperAdminSlice = createSlice({
         });
         builder.addCase(reqtoSuperAdminEditPolicy.rejected, (state, action) => {
             state.editPolicyLoader = false;
+        });
+
+        // reqtoSuperAdminGetHelpCenter
+        builder.addCase(reqtoSuperAdminGetHelpCenter.pending, (state) => {
+            state.helpCenterLoader = true;
+            state.error = null;
+        });
+        builder.addCase(reqtoSuperAdminGetHelpCenter.fulfilled, (state, action) => {
+            state.helpCenterLoader = false;
+            state.helpCenterList = action.payload?.data;
+        });
+        builder.addCase(reqtoSuperAdminGetHelpCenter.rejected, (state, action) => {
+            state.helpCenterLoader = false;
+            state.error = action.payload;
         });
     }
 });

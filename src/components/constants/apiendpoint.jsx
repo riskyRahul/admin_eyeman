@@ -55,4 +55,7 @@ export const apiendpoints = {
     DeletePolicy: "/admin/v2/policies/delete/:id",
     AddPolicy: "/admin/v2/policies/add",
     EditPolicy: "/admin/v2/policies/edit/:id",
+
+    // help-center
+    GetHelpCenter: "/admin/v2/help-center/list",
 }
