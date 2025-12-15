@@ -191,65 +191,46 @@ const Location = () => {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <div className="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div className="col-lg-12 col-12 d-flex justify-content-between align-items-center flex-wrap p-0">
-                                        <div className="header-title d-flex align-items-center gap-1 me-2 me-xl-4">
-                                            {/* <select
-                                                           className="form-select form-control"
-                                                           id="type"
-                                                           name="type"
-                                                           value={select}
-                                                           onChange={(e) => setSelect(e.target.value)}
-                                                           required
-                                                       >
-                                                           <option value="">All</option>
-                                                           <option value="Basic">Basic</option>
-                                                           <option value="Manual">Manual</option>
-                                                           <option value="Professional">Professional</option>
-                                                       </select> */}
-                                            <h2>Campaign &gt; Locations</h2>
-                                        </div>
+                                <div className="d-flex flex-wrap flex-xxl-nowrap align-items-center w-100">
+                                    <div className="header-title col-12 col-xxl-4 d-flex align-items-center gap-3 flex-wrap mb-3 mb-xxl-0">
+                                        <h2 className="m-0">Campaign &gt; Locations</h2>
+                                    </div>
 
-                                        <div className="col-lg-6 col-12 d-flex justify-content-end gap-4">
-                                            <SortDropdown
-                                                options={[
-                                                    { label: "Active", value: "active" },
-                                                    { label: "Inactive", value: "inactive" },
-                                                ]}
-                                                selected={sortOption}
-                                                onChange={setSortOption}
+                                    <div className="col-12 col-xxl-8 d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap">
+                                        <SortDropdown
+                                            options={[
+                                                { label: "Active", value: "active" },
+                                                { label: "Inactive", value: "inactive" },
+                                            ]}
+                                            selected={sortOption}
+                                            onChange={setSortOption}
+                                        />
+
+                                        <div className="search d-flex align-items-center gap-2">
+                                            <input
+                                                type="search"
+                                                className="form-control form-control-sm border-0"
+                                                placeholder="Search"
+                                                value={search}
+                                                onChange={(e) => setSearch(e.target.value)}
+                                                autoComplete="off"
                                             />
-                                            <div className="search d-flex align-items-center gap-1">
-                                                <input
-                                                    type="search"
-                                                    className="form-control form-control-sm border-0"
-                                                    placeholder='Search'
-                                                    id="dt-search-0"
-                                                    name='search'
-                                                    value={search}
-                                                    onChange={(e) => setSearch(e.target.value)}
-                                                    autoComplete="off"
-                                                />
 
-                                                {
-                                                    search ?
-                                                        <button
-                                                            className="search-cancel bg-transparent"
-                                                            onClick={() => setSearch("")}
-                                                        >
-                                                            <img src={SearchClose} alt="Search" className="img-fluid" />
-                                                        </button>
-                                                        :
-                                                        <img src={Search} alt="Search" className="img-fluid" />
-                                                }
-                                            </div>
-
-                                            <button className="add-btn boreder-0" type="button"
-                                                onClick={() => setModalShow({ ...modalShow, addLocation: true })}
-                                            >
-                                                Add Location
-                                            </button>
+                                            {search ? (
+                                                <button className="search-cancel bg-transparent" onClick={() => setSearch("")}>
+                                                    <img src={SearchClose} alt="close" />
+                                                </button>
+                                            ) : (
+                                                <img src={Search} alt="Search" />
+                                            )}
                                         </div>
+
+                                        <button
+                                            className="add-btn"
+                                            onClick={() => setModalShow({ ...modalShow, addLocation: true })}
+                                        >
+                                            Add Location
+                                        </button>
                                     </div>
 
                                 </div>

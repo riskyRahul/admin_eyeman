@@ -8,6 +8,7 @@ import sort_by from '../../../assets/images/sort_by.svg';
 import { RiShareBoxLine } from "react-icons/ri";
 import AddTeamRole from "../../../components/modal/super-admin/teamRole/AddTeamRole";
 import { CreatedDate } from "../../../utils/DateTimeFormate";
+import SortDropdown from "../../../components/common/SortDropdown";
 
 const modal = {
     addUser: false,
@@ -109,11 +110,8 @@ const TeamRole = () => {
                                         <div className="header-title d-flex align-items-center">
                                             <h2>Team Roles</h2>
                                         </div>
-                                        <div className="col-lg-6 col-12 d-flex justify-content-end gap-4">
-                                            <button className="d-flex align-items-center w-100 justify-content-center" style={{ maxWidth: '134px', gap: '10px', backgroundColor: '#F6F6F6', borderRadius: '100px' }}>
-                                                <img src={sort_by} alt="sort_by" />
-                                                <span style={{ fontSize: '16px', fontWeight: '400', color: '#676767' }}>Sort by</span>
-                                            </button>
+                                        <div className="col-12 col-xxl-8 d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap">
+                                            <SortDropdown />
                                             <div className="search d-flex align-items-center gap-1">
                                                 <input
                                                     type="search"

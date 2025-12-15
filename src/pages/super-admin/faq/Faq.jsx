@@ -158,48 +158,48 @@ const FAQ = () => {
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                <div className="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div className="col-lg-12 col-12 d-flex justify-content-between align-items-center flex-wrap p-0">
-                                        <div className="header-title d-flex align-items-center">
-                                            <h2>FAQ’s (Frequently Asked Questions)</h2>
-                                        </div>
-                                        <div className="col-lg-6 col-12 d-flex justify-content-end gap-4">
-                                            <SortDropdown
-                                                options={sortOptions}
-                                                selected={sortOption}
-                                                onChange={(opt) => setSortOption(opt)}
-                                            />
-                                            <div className="search d-flex align-items-center gap-1">
-                                                <input
-                                                    type="search"
-                                                    className="form-control form-control-sm border-0"
-                                                    placeholder='Search'
-                                                    id="dt-search-0"
-                                                    name='search'
-                                                    value={searchTerm}
-                                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                                    autoComplete="off"
-                                                />
-                                                {
-                                                    searchTerm ? (
-                                                        <button
-                                                            className="search-cancel bg-transparent"
-                                                            onClick={() => setSearchTerm("")}
-                                                        >
-                                                            <img src={SearchClose} alt="Search" className="img-fluid" />
-                                                        </button>
-                                                    ) : (
-                                                        <img src={Search} alt="Search" className="img-fluid" />
-                                                    )
-                                                }
-                                            </div>
-                                            <button className="add-btn boreder-0" type="button"
-                                                onClick={() => setModalShow({ ...modalShow, addEditFaqs: true })}
-                                            >
-                                                Add FAQ
-                                            </button>
-                                        </div>
+                                <div className="d-flex flex-wrap flex-xxl-nowrap align-items-center w-100">
+                                    <div className="header-title col-12 col-xxl-4 d-flex align-items-center gap-3 flex-wrap mb-3 mb-xxl-0">
+                                        <h2 className="m-0">FAQ’s (Frequently Asked Questions)</h2>
                                     </div>
+
+                                    <div className="col-12 col-xxl-8 d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap">
+                                        <SortDropdown
+                                            options={sortOptions}
+                                            selected={sortOption}
+                                            onChange={(opt) => setSortOption(opt)}
+                                        />
+                                        <div className="search d-flex align-items-center gap-1">
+                                            <input
+                                                type="search"
+                                                className="form-control form-control-sm border-0"
+                                                placeholder='Search'
+                                                id="dt-search-0"
+                                                name='search'
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                autoComplete="off"
+                                            />
+                                            {
+                                                searchTerm ? (
+                                                    <button
+                                                        className="search-cancel bg-transparent"
+                                                        onClick={() => setSearchTerm("")}
+                                                    >
+                                                        <img src={SearchClose} alt="Search" className="img-fluid" />
+                                                    </button>
+                                                ) : (
+                                                    <img src={Search} alt="Search" className="img-fluid" />
+                                                )
+                                            }
+                                        </div>
+                                        <button className="add-btn boreder-0" type="button"
+                                            onClick={() => setModalShow({ ...modalShow, addEditFaqs: true })}
+                                        >
+                                            Add FAQ
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                             <div className="table-responsive">
