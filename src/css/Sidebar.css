@@ -9,6 +9,7 @@
 
 .layout {
     z-index: 1;
+    display: flex;
 }
 
 .layout .content {
@@ -20,13 +21,52 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 1023px) {
+    .sidebar-overlay {
+        display: block;
+    }
 }
 
 .sidebar {
     color: #7d84ab;
     overflow-x: hidden !important;
-    position: relative;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
     z-index: 999;
+    transition: transform 0.3s ease;
+}
+
+/* Desktop - Always visible */
+@media (min-width: 1024px) {
+    .sidebar {
+        transform: translateX(0) !important;
+        position: relative;
+    }
+    
+    .layout .content {
+        margin-left: 0;
+    }
+}
+
+/* Mobile - Hidden by default, slides in when toggled */
+@media (max-width: 1023px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.toggled {
+        transform: translateX(0);
+    }
+    
+    .layout .content {
+        margin-left: 0 !important;
+    }
 }
 
 .layout .sidebar {
@@ -55,24 +95,15 @@
     background-color: #888;
 }
 
-
-.layout.fixed-sidebar .sidebar {
-    height: 100vh;
-    overflow-y: scroll;
-}
-
 .sidebar .sidebar-layout {
-    height: auto;
-    min-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
     background: var(--main-btn-color);
     border-right: 1px solid #1092C633 !important;
     z-index: 2;
-
-    overflow-y: visible;
-    height: auto;
+    overflow-y: auto;
 }
 
 .sidebar .sidebar-layout .sidebar-header {
@@ -233,10 +264,6 @@
     border-radius: 2px;
     transition: color 0.3s;
 }
-
-/* .layout .sidebar .menu .menu-item .collapse {
-    margin: 0px 20px;
-} */
 
 .layout .sidebar .menu .menu-item .collapse .menu-subitem {
     padding-left: 49px;
@@ -423,12 +450,6 @@
     margin-left: -3px !important;
 }
 
-@media (max-width: 576px) {
-    #btn-collapse {
-        display: none;
-    }
-}
-
 .layout .sidebar .sidebar-collapser {
     transition: left, right, 0.3s;
     position: fixed;
@@ -462,7 +483,6 @@
 }
 
 .sidebar-toggler {
-    margin-left: 40px;
     color: #000;
 }
 
@@ -477,13 +497,6 @@
         padding: 12px 25px;
     }
 }
-
-@media (max-width: 575px) {
-    .sidebar-toggler {
-        margin-left: 20px;
-    }
-}
-
 
 @media (max-width: 375px) {
     .nav .navbar-inner {

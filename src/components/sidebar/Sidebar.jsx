@@ -9,8 +9,9 @@ export const SuperAdminSidebar = ({ mobileToggle, setMobileToggle, handleLogout 
     const [openIndex, setOpenIndex] = useState(null);
 
     const handleSidebarDismiss = () => {
-        if (window.innerWidth <= 576) {
-            setMobileToggle(!mobileToggle);
+        // Only auto-close on mobile (below 1024px)
+        if (window.innerWidth < 1024) {
+            setMobileToggle(false);
         }
     };
 
@@ -26,59 +27,87 @@ export const SuperAdminSidebar = ({ mobileToggle, setMobileToggle, handleLogout 
         }
     }, [pathname]);
 
+    // Handle window resize to auto-show sidebar on desktop
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setMobileToggle(true); // Always show on desktop
+            } else {
+                setMobileToggle(false); // Hide on mobile by default
+            }
+        };
+
+        // Set initial state
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [setMobileToggle]);
+
     const handleParentClick = (e, index) => {
         e.preventDefault();
         setOpenIndex(prev => (prev === index ? null : index));
     };
 
     return (
-        <aside id="sidebar" className={`sidebar break-point-sm has-bg-image ${mobileToggle ? "toggled" : ""}`}>
-            <div className="sidebar-layout">
-                <div className="sidebar-header">
-                    <Link to="/superadmin/dashboard" className="pro-sidebar-logo admin" onClick={handleSidebarDismiss}>
-                        <img src={Logo} alt="SuperAdmin logo" className="full-fluid" width={80} />
-                    </Link>
-                </div>
+        <>
+            {/* Overlay for mobile */}
+            {mobileToggle && window.innerWidth < 1024 && (
+                <div 
+                    className="sidebar-overlay"
+                    onClick={() => setMobileToggle(false)}
+                />
+            )}
 
-                <nav className="menu open-current-submenu">
-                    <ul>
-                        {
-                            SidebarData?.superadmin?.map((i, index) => {
-                                const hasChildren = i.children && i.children.length > 0;
-                                return (
-                                    <li
-                                        className={`menu-item ${openIndex === index ? "menu-open" : ""}`}
-                                        key={index}
-                                    >
-                                        {
-                                            i.onClick === "logout" ? (
-                                                <Link
-                                                    onClick={i?.onClick === "logout" ? handleLogout : null}
-                                                >
-                                                    <span className="menu-icon">
-                                                        {i.icon}
-                                                    </span>
-                                                    <span className="menu-title">
-                                                        {i.label}
-                                                    </span>
-                                                </Link>
-                                            ) : hasChildren ? (
-                                                <>
-                                                    <NavLink
-                                                        className="d-flex align-items-center justify-content-between dropdown mb-2 bg-transparent"
-                                                        onClick={(e) => handleParentClick(e, index)}
+            <aside 
+                id="sidebar" 
+                className={`sidebar break-point-sm has-bg-image ${mobileToggle ? "toggled" : ""}`}
+            >
+                <div className="sidebar-layout">
+                    <div className="sidebar-header">
+                        <Link to="/superadmin/dashboard" className="pro-sidebar-logo admin" onClick={handleSidebarDismiss}>
+                            <img src={Logo} alt="SuperAdmin logo" className="full-fluid" width={80} />
+                        </Link>
+                    </div>
+
+                    <nav className="menu open-current-submenu">
+                        <ul>
+                            {
+                                SidebarData?.superadmin?.map((i, index) => {
+                                    const hasChildren = i.children && i.children.length > 0;
+                                    return (
+                                        <li
+                                            className={`menu-item ${openIndex === index ? "menu-open" : ""}`}
+                                            key={index}
+                                        >
+                                            {
+                                                i.onClick === "logout" ? (
+                                                    <Link
+                                                        onClick={i?.onClick === "logout" ? handleLogout : null}
                                                     >
-                                                        <span className="d-flex align-items-center">
-                                                            <span className="menu-icon">{i.icon}</span>
-                                                            <span className="menu-title">{i.label}</span>
+                                                        <span className="menu-icon">
+                                                            {i.icon}
                                                         </span>
-
-                                                        <span className={`submenu-indicator ${openIndex === index ? 'open' : ''}`}>
-                                                            <IoChevronDownSharp style={{ width: '34.78px', height: '20.34px' }} />
+                                                        <span className="menu-title">
+                                                            {i.label}
                                                         </span>
-                                                    </NavLink>
+                                                    </Link>
+                                                ) : hasChildren ? (
+                                                    <>
+                                                        <NavLink
+                                                            className="d-flex align-items-center justify-content-between dropdown mb-2 bg-transparent"
+                                                            onClick={(e) => handleParentClick(e, index)}
+                                                        >
+                                                            <span className="d-flex align-items-center">
+                                                                <span className="menu-icon">{i.icon}</span>
+                                                                <span className="menu-title">{i.label}</span>
+                                                            </span>
 
-                                                    {!mobileToggle && (
+                                                            <span className={`submenu-indicator ${openIndex === index ? 'open' : ''}`}>
+                                                                <IoChevronDownSharp style={{ width: '34.78px', height: '20.34px' }} />
+                                                            </span>
+                                                        </NavLink>
+
                                                         <ul id={`submenu-${index}`} className={`collapse ${openIndex === index ? 'show' : ''}`}>
                                                             {i.children.map((child, childIndex) => (
                                                                 <li key={childIndex} className="menu-subitem">
@@ -92,30 +121,30 @@ export const SuperAdminSidebar = ({ mobileToggle, setMobileToggle, handleLogout 
                                                                 </li>
                                                             ))}
                                                         </ul>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                <NavLink
-                                                    to={i.route}
-                                                    className={`d-flex align-items-center`}
-                                                    onClick={handleSidebarDismiss}
-                                                >
-                                                    <span className="menu-icon">
-                                                        {i.icon}
-                                                    </span>
-                                                    <span className="menu-title">
-                                                        {i.label}
-                                                    </span>
-                                                </NavLink>
-                                            )
-                                        }
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+                                                    </>
+                                                ) : (
+                                                    <NavLink
+                                                        to={i.route}
+                                                        className={`d-flex align-items-center`}
+                                                        onClick={handleSidebarDismiss}
+                                                    >
+                                                        <span className="menu-icon">
+                                                            {i.icon}
+                                                        </span>
+                                                        <span className="menu-title">
+                                                            {i.label}
+                                                        </span>
+                                                    </NavLink>
+                                                )
+                                            }
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+        </>
     )
 }

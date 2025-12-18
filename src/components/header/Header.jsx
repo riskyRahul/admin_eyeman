@@ -19,7 +19,7 @@ export const SuperAdminHeader = ({
 
   const handleLogouts = () => {
     localStorage.removeItem("eyeman-superAdmin-token");
-  }
+  };
 
   useEffect(() => {
     if (pathname.startsWith("/superadmin/")) {
@@ -68,8 +68,7 @@ export const SuperAdminHeader = ({
             {/* {title || ""} */}
             Super Admin
           </h6>
-          <p className="site-menu-text">
-            admin@eyeman.com</p>
+          <p className="site-menu-text">admin@eyeman.com</p>
         </div>
 
         <ul className="navbar-nav navbar-list ms-auto">
@@ -82,15 +81,9 @@ export const SuperAdminHeader = ({
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <div
-                style={{
-
-                }}
-                className="profile"
-              >
+              <div style={{}} className="profile">
                 SA
               </div>
-
             </Link>
 
             <ul
@@ -108,6 +101,9 @@ export const SuperAdminHeader = ({
         <button
           id="btn-toggle"
           className="border-0 sidebar-toggler break-point-sm btn-line"
+          style={{
+            display: window.innerWidth < 1024 ? "block" : "none",
+          }}
           onClick={() => setMobileToggle(!mobileToggle)}
         >
           <i className="ri-menu-line ri-xl" />
