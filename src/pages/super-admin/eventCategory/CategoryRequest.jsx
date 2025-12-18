@@ -260,21 +260,8 @@ const CategoryRequest = () => {
                         <div className="card">
                             <div className="card-header">
                                 <div className="d-flex align-items-center justify-content-between flex-wrap">
-                                    <div className="col-lg-12 col-12 d-flex justify-content-between align-items-center flex-wrap p-0">
-                                        <div className="header-title d-flex align-items-center gap-1 me-2 me-xl-4">
-                                            {/* <select
-                                                           className="form-select form-control"
-                                                           id="type"
-                                                           name="type"
-                                                           value={select}
-                                                           onChange={(e) => setSelect(e.target.value)}
-                                                           required
-                                                       >
-                                                           <option value="">All</option>
-                                                           <option value="Basic">Basic</option>
-                                                           <option value="Manual">Manual</option>
-                                                           <option value="Professional">Professional</option>
-                                                       </select> */}
+                                    <div className="d-flex flex-wrap flex-xxl-nowrap align-items-center w-100">
+                                        <div className="header-title d-flex align-items-center gap-1 w-100">
                                             <h2>
                                                 Campaign &gt;
                                                 <span
@@ -287,7 +274,7 @@ const CategoryRequest = () => {
                                             </h2>
                                         </div>
 
-                                        <div className="col-lg-6 col-12 d-flex justify-content-end gap-4">
+                                        <div className="d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap w-100 mt-xxl-0 mt-3">
                                             <SortDropdown
                                                 options={[
                                                     { label: "Accepted", value: "accepted" },
@@ -297,7 +284,7 @@ const CategoryRequest = () => {
                                                 selected={statusFilter}
                                                 onChange={setStatusFilter}
                                             />
-                                            <div className="search d-flex align-items-center gap-1 me-2 me-xl-4">
+                                            <div className="search d-flex align-items-center gap-1">
                                                 <input
                                                     type="search"
                                                     className="form-control form-control-sm border-0"
@@ -323,7 +310,6 @@ const CategoryRequest = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div className="table-responsive">

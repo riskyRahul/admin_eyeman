@@ -87,6 +87,7 @@
     top: 0;
     z-index: 100;
     border-bottom: .2px solid #67A9FD;
+    background-color: #2684FC;
 }
 
 .sidebar .sidebar-layout .sidebar-header .pro-sidebar-logo {

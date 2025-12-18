@@ -99,7 +99,7 @@ const HelpCenter = () => {
                                         <div className="header-title d-flex align-items-center">
                                             <h2>Help Center</h2>
                                         </div>
-                                        <div className="col-lg-6 col-12 d-flex justify-content-end gap-4">
+                                        <div className="col-12 col-xxl-8 d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap">
                                             <SortDropdown
                                                 options={sortOptions}
                                                 selected={sortOption}

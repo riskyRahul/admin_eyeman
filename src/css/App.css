@@ -632,13 +632,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .categorylist-section .card .card-header .add-btn {
-    padding: 16px 30px;
+    padding: 14px 30px;
     border-radius: 100px;
     font-weight: 600;
     font-size: 15px;
     color: var(--white-color);
     background: var(--main-btn-color);
     border: 0;
+    max-height: 44px;
 }
 
 .categorylist-section .card .card-body .search .search-label,
@@ -1207,4 +1208,16 @@ button:disabled {
 .rejected {
     background-color: #e94235;
     color: var(--white-text);
+}
+
+.custom-gap {
+    gap: 1.5rem;
+}
+
+@media (max-width: 1440px) {
+    .custom-gap {
+        gap: 0.55rem;
+        align-items: end !important;
+        height: 107px;
+    }
 }

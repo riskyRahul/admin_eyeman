@@ -105,39 +105,35 @@ const Countries = () => {
                 <div className="col-lg-12">
                     <div className="card">
                         <div className="card-header">
-                            <div className="d-flex align-items-center justify-content-between flex-wrap">
-                                <div className="col-lg-12 col-12 d-flex justify-content-between align-items-center flex-wrap p-0">
-                                    <div className="header-title d-flex align-items-center">
-                                        <h2>Campaign &gt; Country</h2>
-                                    </div>
+                            <div className="d-flex flex-wrap flex-xxl-nowrap align-items-center w-100">
+                                <div className="header-title col-12 col-xxl-4 d-flex align-items-center gap-3 flex-wrap mb-3 mb-xxl-0">
+                                    <h2 className="m-0">Campaign &gt; Country</h2>
+                                </div>
 
-                                    <div className="col-12 d-flex justify-content-end gap-4">
-                                        <SortDropdown
-                                            options={sortOptions}
-                                            selected={selectedContinent}
-                                            onChange={setSelectedContinent}
+                                <div className="col-12 col-xxl-8 d-flex align-items-center justify-content-xxl-end gap-3 flex-wrap">
+                                    <SortDropdown
+                                        options={sortOptions}
+                                        selected={selectedContinent}
+                                        onChange={setSelectedContinent}
+                                    />
+
+                                    <div className="search d-flex align-items-center gap-2">
+                                        <input
+                                            type="search"
+                                            className="form-control form-control-sm border-0"
+                                            placeholder="Search"
+                                            value={search}
+                                            onChange={(e) => setSearch(e.target.value)}
+                                            autoComplete="off"
                                         />
 
-                                        <div className="search d-flex align-items-center gap-1">
-                                            <input
-                                                type="search"
-                                                className="form-control form-control-sm border-0"
-                                                placeholder="Search"
-                                                value={search}
-                                                onChange={(e) => setSearch(e.target.value)}
-                                            />
-                                            {search ? (
-                                                <button
-                                                    className="search-cancel bg-transparent"
-                                                    onClick={() => setSearch("")}
-                                                >
-                                                    <img src={SearchClose} alt="Search" />
-                                                </button>
-                                            ) : (
-                                                <img src={Search} alt="Search" />
-                                            )}
-                                        </div>
-
+                                        {search ? (
+                                            <button className="search-cancel bg-transparent" onClick={() => setSearch("")}>
+                                                <img src={SearchClose} alt="close" />
+                                            </button>
+                                        ) : (
+                                            <img src={Search} alt="Search" />
+                                        )}
                                     </div>
                                 </div>
                             </div>
