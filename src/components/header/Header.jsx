@@ -74,7 +74,7 @@ export const SuperAdminHeader = ({
         <ul className="navbar-nav navbar-list ms-auto">
           <li className="nav-item dropdown">
             <Link
-              className="nav-link d-flex align-items-center position-relative ps-3 p-0"
+              className="nav-link d-flex align-items-center position-relative ps-3 p-0 me-1"
               href="#"
               id="profile-dropdown"
               role="button"
