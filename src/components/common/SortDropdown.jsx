@@ -101,7 +101,7 @@ const SortDropdown = ({
                     style={{
                         position: "absolute",
                         top: "55px",
-                        right: 0,
+                        left: 0,
                         minWidth: "200px",
                         borderRadius: "14px",
                         boxShadow: "0px 8px 25px rgba(0,0,0,0.12)",
