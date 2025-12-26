@@ -636,3 +636,122 @@ export const reqtoSuperAdminGetHelpCenter = createAsyncThunk("reqtoSuperAdminGet
         throw err
     }
 });
+
+
+// Add these to your SuperAdminServices.js file
+
+// reqtoSuperAdminGetTeam
+export const reqtoSuperAdminGetTeam = createAsyncThunk("reqtoSuperAdminGetTeam", async (data, { rejectWithValue }) => {
+    try {
+        const res = await Axios.get(apiendpoints.GetTeam, authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminDeleteTeam
+export const reqtoSuperAdminDeleteTeam = createAsyncThunk("reqtoSuperAdminDeleteTeam", async (id, { rejectWithValue }) => {
+    try {
+        const res = await Axios.delete(apiendpoints.DeleteTeam.replace(":id", id), authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            toast.success(res.data.message);
+
+            return {
+                _id: id,
+                status: res.data
+            };
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminAddTeam
+export const reqtoSuperAdminAddTeam = createAsyncThunk("reqtoSuperAdminAddTeam", async (data, { rejectWithValue }) => {
+    try {
+        const res = await Axios.post(apiendpoints.AddTeam, data, authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            toast.success(res.data.message);
+
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminEditTeam
+export const reqtoSuperAdminEditTeam = createAsyncThunk(
+    "reqtoSuperAdminEditTeam",
+    async ({ id, data }, { rejectWithValue }) => {
+        try {
+            const res = await Axios.put(
+                apiendpoints.EditTeam.replace(":id", id),
+                data,
+                authHeaders()
+            );
+
+            if (res.data?.success) {
+                toast.success(res.data.message);
+                return res.data;
+            } else {
+                toast.error(res.data.message);
+                return rejectWithValue(res.data);
+            }
+        } catch (err) {
+            return rejectWithValue(err.response?.data || err.message);
+        }
+    }
+);
+
+// reqtoSuperAdminStatusTeam
+export const reqtoSuperAdminStatusTeam = createAsyncThunk("reqtoSuperAdminStatusTeam", async ({ id, data }, { rejectWithValue }) => {
+    try {
+        const res = await Axios.put(apiendpoints.statusTeam.replace(":id", id), data, authHeaders());
+
+        if (res.data?.success) {
+            toast.success(res.data.message);
+
+            return {
+                _id: id,
+                status: res.data.teamStatus
+            };
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminDetailTeam
+export const reqtoSuperAdminDetailTeam = createAsyncThunk("reqtoSuperAdminDetailTeam", async (id, { rejectWithValue }) => {
+    try {
+        const res = await Axios.get(apiendpoints.detailTeam.replace(":id", id), authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});

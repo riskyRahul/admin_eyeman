@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reqtoSuperAdminAddEventCategory, reqtoSuperAdminAddFaqs, reqtoSuperAdminAddLocation, reqtoSuperAdminAddPlace, reqtoSuperAdminAddPolicy, reqtoSuperAdminCountriesWiseCountry, reqtoSuperAdminDashboard, reqtoSuperAdminDeleteEventCategory, reqtoSuperAdminDeleteFaqs, reqtoSuperAdminDeleteLocation, reqtoSuperAdminDeletePalce, reqtoSuperAdminDeletePolicy, reqtoSuperAdminDeleteUser, reqtoSuperAdminDetailUser, reqtoSuperAdminEditEventCategory, reqtoSuperAdminEditFaqs, reqtoSuperAdminEditLocation, reqtoSuperAdminEditPalce, reqtoSuperAdminEditPolicy, reqtoSuperAdminGetCategoryRequest, reqtoSuperAdminGetContinents, reqtoSuperAdminGetCountries, reqtoSuperAdminGeteventCategory, reqtoSuperAdminGetFaqs, reqtoSuperAdminGetHelpCenter, reqtoSuperAdminGetLocation, reqtoSuperAdminGetPlace, reqtoSuperAdminGetPolicy, reqtoSuperAdminGetVoyager, reqtoSuperAdminStatusLocations, reqtoSuperAdminStatusPlaces, reqtoSuperAdminStatusUser, reqtoSuperAdminUpdateCategoryRequest } from "../../services/superadmin/SuperAdminServices";
+import { reqtoSuperAdminAddEventCategory, reqtoSuperAdminAddFaqs, reqtoSuperAdminAddLocation, reqtoSuperAdminAddPlace, reqtoSuperAdminAddPolicy, reqtoSuperAdminAddTeam, reqtoSuperAdminCountriesWiseCountry, reqtoSuperAdminDashboard, reqtoSuperAdminDeleteEventCategory, reqtoSuperAdminDeleteFaqs, reqtoSuperAdminDeleteLocation, reqtoSuperAdminDeletePalce, reqtoSuperAdminDeletePolicy, reqtoSuperAdminDeleteTeam, reqtoSuperAdminDeleteUser, reqtoSuperAdminDetailTeam, reqtoSuperAdminDetailUser, reqtoSuperAdminEditEventCategory, reqtoSuperAdminEditFaqs, reqtoSuperAdminEditLocation, reqtoSuperAdminEditPalce, reqtoSuperAdminEditPolicy, reqtoSuperAdminEditTeam, reqtoSuperAdminGetCategoryRequest, reqtoSuperAdminGetContinents, reqtoSuperAdminGetCountries, reqtoSuperAdminGeteventCategory, reqtoSuperAdminGetFaqs, reqtoSuperAdminGetHelpCenter, reqtoSuperAdminGetLocation, reqtoSuperAdminGetPlace, reqtoSuperAdminGetPolicy, reqtoSuperAdminGetTeam, reqtoSuperAdminGetVoyager, reqtoSuperAdminStatusLocations, reqtoSuperAdminStatusPlaces, reqtoSuperAdminStatusTeam, reqtoSuperAdminStatusUser, reqtoSuperAdminUpdateCategoryRequest } from "../../services/superadmin/SuperAdminServices";
 
 const initialState = {
     loader: false,
@@ -45,6 +45,14 @@ const initialState = {
 
     eventCategoryList: [],
     eventCategoryLoader: false,
+
+    // team management
+    teamList: [],
+    teamLoader: false,
+    addTeamLoader: false,
+    editTeamLoader: false,
+    deleteTeamLoader: false,
+    teamDetail: null,
 
     error: null,
     deleteLoader: false,
@@ -473,6 +481,85 @@ const SuperAdminSlice = createSlice({
         });
         builder.addCase(reqtoSuperAdminGetHelpCenter.rejected, (state, action) => {
             state.helpCenterLoader = false;
+            state.error = action.payload;
+        });
+
+        // ========== TEAM MANAGEMENT ==========
+
+        // reqtoSuperAdminGetTeam
+        builder.addCase(reqtoSuperAdminGetTeam.pending, (state) => {
+            state.teamLoader = true;
+            state.error = null;
+        });
+        builder.addCase(reqtoSuperAdminGetTeam.fulfilled, (state, action) => {
+            state.teamLoader = false;
+            state.teamList = action.payload?.data || [];
+        });
+        builder.addCase(reqtoSuperAdminGetTeam.rejected, (state, action) => {
+            state.teamLoader = false;
+            state.error = action.payload;
+        });
+
+        // reqtoSuperAdminAddTeam
+        builder.addCase(reqtoSuperAdminAddTeam.pending, (state) => {
+            state.addTeamLoader = true;
+        });
+        builder.addCase(reqtoSuperAdminAddTeam.fulfilled, (state, action) => {
+            state.addTeamLoader = false;
+        });
+        builder.addCase(reqtoSuperAdminAddTeam.rejected, (state, action) => {
+            state.addTeamLoader = false;
+        });
+
+        // reqtoSuperAdminEditTeam
+        builder.addCase(reqtoSuperAdminEditTeam.pending, (state, action) => {
+            state.editTeamLoader = true;
+        });
+        builder.addCase(reqtoSuperAdminEditTeam.fulfilled, (state, action) => {
+            state.editTeamLoader = false;
+        });
+        builder.addCase(reqtoSuperAdminEditTeam.rejected, (state, action) => {
+            state.editTeamLoader = false;
+        });
+
+        // reqtoSuperAdminDeleteTeam
+        builder.addCase(reqtoSuperAdminDeleteTeam.pending, (state) => {
+            state.deleteTeamLoader = true;
+        });
+        builder.addCase(reqtoSuperAdminDeleteTeam.fulfilled, (state, action) => {
+            state.deleteTeamLoader = false;
+            state.teamList = state.teamList.filter((i) => i._id !== action.payload._id);
+        });
+        builder.addCase(reqtoSuperAdminDeleteTeam.rejected, (state, action) => {
+            state.deleteTeamLoader = false;
+        });
+
+        // reqtoSuperAdminStatusTeam
+        builder.addCase(reqtoSuperAdminStatusTeam.pending, (state) => {
+            state.error = null;
+        });
+        builder.addCase(reqtoSuperAdminStatusTeam.fulfilled, (state, action) => {
+            state.teamList = state.teamList.map((i) =>
+                i._id === action.payload._id
+                    ? { ...i, status: action.payload.status }
+                    : i
+            );
+        });
+        builder.addCase(reqtoSuperAdminStatusTeam.rejected, (state, action) => {
+            state.error = action.payload;
+        });
+
+        // reqtoSuperAdminDetailTeam
+        builder.addCase(reqtoSuperAdminDetailTeam.pending, (state) => {
+            state.teamLoader = true;
+            state.error = null;
+        });
+        builder.addCase(reqtoSuperAdminDetailTeam.fulfilled, (state, action) => {
+            state.teamLoader = false;
+            state.teamDetail = action.payload?.data;
+        });
+        builder.addCase(reqtoSuperAdminDetailTeam.rejected, (state, action) => {
+            state.teamLoader = false;
             state.error = action.payload;
         });
     }

@@ -58,4 +58,12 @@ export const apiendpoints = {
 
     // help-center
     GetHelpCenter: "/admin/v2/help-center/list",
+
+    // team
+    GetTeam: "/admin/v2/team/list",
+    DeleteTeam: "/admin/v2/team/delete/:id",
+    AddTeam: "/admin/v2/team/add",
+    EditTeam: "/admin/v2/team/edit/:id",
+    statusTeam: "/admin/v2/team/status/:id",
+    detailTeam: "/admin/v2/team/detail/:id",
 }
