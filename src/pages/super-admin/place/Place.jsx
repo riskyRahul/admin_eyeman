@@ -93,6 +93,16 @@ const Place = () => {
             minwidth: "180px !important",
         },
         {
+            name: 'Latitude',
+            cell: (row) => row?.lat || "-",
+            minwidth: "180px !important",
+        },
+        {
+            name: 'Longitude',
+            cell: (row) => row?.long || "-",
+            minwidth: "180px !important",
+        },
+        {
             name: 'Created Date',
             cell: (row) => CreatedDate(row.created_at),
         },
