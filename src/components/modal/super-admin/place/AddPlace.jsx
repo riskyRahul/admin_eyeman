@@ -5,15 +5,17 @@ import { loaders } from "../../../loader/Loader";
 import { validateField } from "../../../../utils/FormValidations";
 import { reqtoSuperAdminAddPlace, reqtoSuperAdminCountriesWiseCountry, reqtoSuperAdminGetContinents, reqtoSuperAdminGetCountries } from "../../../../pages/redux-Toolkit/services/superadmin/SuperAdminServices";
 import ImageUpload from "../../imageupload/ImageUpload ";
-// import { reqtoSuperAdminAddPlace, reqtoSuperAdminGetCountries } from "your-path";
+import { FiX } from "react-icons/fi";
 
 const initialState = {
     name: "",
+    lat: "",
+    long: "",
     placeImage: null,
     placeImagePreview: null,
 };
 
-const AddPlace = ({ show, handleClose }) => {
+const AddPlace = ({ show, handleClose, GetPlaceList }) => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState(initialState);
     const [nameError, setNameError] = useState("");
@@ -23,7 +25,7 @@ const AddPlace = ({ show, handleClose }) => {
     const [loadingCountries, setLoadingCountries] = useState(false);
 
     const superAdminReducer = useSelector((state) => state.SuperAdmin);
-    const { continentsList } = superAdminReducer;
+    const { continentsList, placeLoader } = superAdminReducer;
 
     const handleCloseHide = () => {
         handleClose();
@@ -50,6 +52,8 @@ const AddPlace = ({ show, handleClose }) => {
         } else if (name === "name") {
             setFormData((prev) => ({ ...prev, name: value }));
             setNameError(validateField("name", value));
+        } else if (name === "lat" || name === "long") {
+            setFormData((prev) => ({ ...prev, [name]: value }));
         }
     };
 
@@ -61,21 +65,10 @@ const AddPlace = ({ show, handleClose }) => {
         setCountryId("");
 
         if (selectedId) {
-            console.log(selectedId)
             setLoadingCountries(true);
             try {
-                // 👇 Replace this with your actual Redux API call
                 const res = await dispatch(reqtoSuperAdminCountriesWiseCountry(selectedId)).unwrap();
                 setCountryList(res.data);
-
-                // Temporary fake API data for demo:
-                // const fakeResponse = [
-                //     { _id: "c1", name: "India" },
-                //     { _id: "c2", name: "China" },
-                //     { _id: "c3", name: "Japan" },
-                // ];
-                // await new Promise((resolve) => setTimeout(resolve, 1000)); // simulate delay
-                // setCountryList(fakeResponse);
             } catch (err) {
                 console.error("Failed to fetch countries:", err);
             } finally {
@@ -96,16 +89,28 @@ const AddPlace = ({ show, handleClose }) => {
             return;
         }
 
-        const payload = {
-            name: formData.name,
-            placeImage: formData.placeImage,
-            continentId,
-            countryId,
-        };
+        // ✅ Create FormData for file upload
+        const payload = new FormData();
+        payload.append("name", formData.name);
+        payload.append("lat", formData.lat);
+        payload.append("long", formData.long);
+        payload.append("continentId", continentId);
+        payload.append("countryId", countryId);
+        
+        if (formData.placeImage) {
+            payload.append("placeImage", formData.placeImage);
+        }
 
-        console.log("Submitting payload:", payload);
-        dispatch(reqtoSuperAdminAddPlace(payload));
-        handleCloseHide();
+        try {
+            const res = await dispatch(reqtoSuperAdminAddPlace(payload)).unwrap();
+            
+            if (res?.success === true) {
+                handleCloseHide();
+                GetPlaceList();
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     const GetContinentList = async () => {
@@ -120,14 +125,21 @@ const AddPlace = ({ show, handleClose }) => {
         <Modal className="form" show={show} backdrop="static" centered>
             <div className="modal-header">
                 <h5 className="modal-title mb-4">Add Place</h5>
+
+                <button
+                    type="button"
+                    className="btn-close-icon"
+                    onClick={handleCloseHide}
+                >
+                    <FiX size={22} />
+                </button>
             </div>
 
             <div className="modal-body">
                 <form onSubmit={handleSubmit}>
-
                     <div className="mb-4">
                         <label htmlFor="name" className="form-label">
-                            Name :
+                            Place Name
                         </label>
                         <input
                             type="text"
@@ -143,50 +155,21 @@ const AddPlace = ({ show, handleClose }) => {
                         {nameError && <small className="text-danger">{nameError}</small>}
                     </div>
 
-
-                    {/* <div className="mb-4">
-                        <label className="form-label">Place Image :</label>
-
-                        <div
-                            className="upload-box text-center"
-                            onClick={() => document.getElementById("placeImage").click()}
-                        >
-                            <div className="upload-icon">
-                                <i className="fa-regular fa-image" style={{ fontSize: "40px" }}></i>
-                            </div>
-
-                            <p className="upload-text">Click to upload image</p>
-                            <p className="upload-subtext">JPG, JPEG, PNG</p>
-
-                            <input
-                                type="file"
-                                id="placeImage"
-                                name="placeImage"
-                                accept="image/*"
-                                style={{ display: "none" }}
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        {formData.placeImagePreview && (
-                            <div className="mt-3 text-center">
-                                <img
-                                    src={formData.placeImagePreview}
-                                    alt="Preview"
-                                    className="img-fluid rounded"
-                                    style={{
-                                        maxHeight: "120px",
-                                        border: "1px solid #ddd",
-                                        padding: "5px",
-                                    }}
-                                />
-                            </div>
-                        )}
-                    </div> */}
                     <ImageUpload
-                        label="placeImage"
+                        label="Place Image"
                         value={formData.placeImagePreview}
                         onChange={(file) => {
+                            if (file === null) {
+                                // Remove image
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    placeImage: null,
+                                    placeImagePreview: null,
+                                }));
+                                return;
+                            }
+
+                            // Add image
                             const imageUrl = URL.createObjectURL(file);
                             setFormData((prev) => ({
                                 ...prev,
@@ -199,7 +182,7 @@ const AddPlace = ({ show, handleClose }) => {
                     {continentsList?.length > 0 && (
                         <div className="mb-4">
                             <label htmlFor="continent" className="form-label">
-                                Continent :
+                                Continent
                             </label>
                             <select
                                 id="continent"
@@ -219,10 +202,9 @@ const AddPlace = ({ show, handleClose }) => {
                         </div>
                     )}
 
-
                     <div className="mb-4">
                         <label htmlFor="country" className="form-label">
-                            Country :
+                            Country
                         </label>
                         <select
                             id="country"
@@ -250,10 +232,54 @@ const AddPlace = ({ show, handleClose }) => {
                         </select>
                     </div>
 
+                    <div className="mb-4">
+                        <label htmlFor="lat" className="form-label">
+                            Latitude
+                        </label>
+                        <input
+                            type="text"
+                            id="lat"
+                            name="lat"
+                            className="form-control"
+                            placeholder="Enter Latitude (e.g., 27.1751)"
+                            autoComplete="off"
+                            value={formData.lat}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="long" className="form-label">
+                            Longitude
+                        </label>
+                        <input
+                            type="text"
+                            id="long"
+                            name="long"
+                            className="form-control"
+                            placeholder="Enter Longitude (e.g., 78.0421)"
+                            autoComplete="off"
+                            value={formData.long}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
                     <div className="d-flex justify-content-between">
-                        <button type="submit" className="close-btn">
-                            Submit
+                        <button 
+                            type="submit" 
+                            className="close-btn"
+                            disabled={placeLoader}
+                        >
+                            {placeLoader ? (
+                                <>
+                                    {loaders.small}
+                                    Submitting...
+                                </>
+                            ) : (
+                                "Submit"
+                            )}
                         </button>
                         <button
                             type="button"

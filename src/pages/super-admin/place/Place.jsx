@@ -231,9 +231,9 @@ const Place = () => {
 
                                         <button
                                             className="add-btn"
-                                            onClick={() => setModalShow({ ...modalShow, addLocation: true })}
+                                            onClick={() => setModalShow({ ...modalShow, addPlace: true })}
                                         >
-                                            Add Location
+                                            Add Place
                                         </button>
                                     </div>
 

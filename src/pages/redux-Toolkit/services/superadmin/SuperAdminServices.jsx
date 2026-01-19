@@ -755,3 +755,63 @@ export const reqtoSuperAdminDetailTeam = createAsyncThunk("reqtoSuperAdminDetail
         throw err
     }
 });
+
+// Add these functions to your existing SuperAdminServices.js file
+
+// reqtoSuperAdminGetSettings
+export const reqtoSuperAdminGetSettings = createAsyncThunk("reqtoSuperAdminGetSettings", async (data, { rejectWithValue }) => {
+    try {
+        const res = await Axios.get(apiendpoints.GetSettings, authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminAddSettings (if needed in future)
+export const reqtoSuperAdminAddSettings = createAsyncThunk("reqtoSuperAdminAddSettings", async (data, { rejectWithValue }) => {
+    try {
+        const res = await Axios.post(apiendpoints.AddSettings, data, authHeaders());
+
+        if (res.data?.status || res.data?.success) {
+            toast.success(res.data.message);
+
+            return res.data;
+        } else {
+            toast.error(res.data.message);
+        }
+
+    } catch (err) {
+        throw err
+    }
+});
+
+// reqtoSuperAdminEditSettings
+export const reqtoSuperAdminEditSettings = createAsyncThunk(
+    "reqtoSuperAdminEditSettings",
+    async ({ id, data }, { rejectWithValue }) => {
+        try {
+            const res = await Axios.put(
+                apiendpoints.EditSettings.replace(":id", id),
+                data,
+                authHeaders()
+            );
+
+            if (res.data?.success) {
+                toast.success(res.data.message);
+                return res.data;
+            } else {
+                toast.error(res.data.message);
+                return rejectWithValue(res.data);
+            }
+        } catch (err) {
+            return rejectWithValue(err.response?.data || err.message);
+        }
+    }
+);
