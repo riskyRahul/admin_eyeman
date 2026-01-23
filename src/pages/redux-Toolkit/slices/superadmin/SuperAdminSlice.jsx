@@ -42,6 +42,11 @@ import {
   reqtoSuperAdminStatusTeam,
   reqtoSuperAdminStatusUser,
   reqtoSuperAdminUpdateCategoryRequest,
+  reqtoSuperAdminGetNotifications,
+  reqtoSuperAdminGetNotificationDetail,
+  reqtoSuperAdminAddNotification,
+  reqtoSuperAdminEditNotification,
+  reqtoSuperAdminDeleteNotification,
 } from "../../services/superadmin/SuperAdminServices";
 
 const initialState = {
@@ -97,6 +102,15 @@ const initialState = {
   deleteTeamLoader: false,
   teamDetail: null,
 
+  // notifications
+  notificationList: [],
+  notificationLoader: false,
+  notificationDetail: null,
+  notificationDetailLoader: false,
+  addNotificationLoader: false,
+  editNotificationLoader: false,
+  deleteNotificationLoader: false,
+
   error: null,
   deleteLoader: false,
 };
@@ -142,7 +156,7 @@ const SuperAdminSlice = createSlice({
       state.voyagerList = state.voyagerList.map((i) =>
         i._id === action.payload._id
           ? { ...i, profile_status: action.payload.status }
-          : i
+          : i,
       );
     });
     builder.addCase(reqtoSuperAdminStatusUser.rejected, (state, action) => {
@@ -170,7 +184,7 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminDeleteUser.fulfilled, (state, action) => {
       state.deleteUserLoader = false;
       state.voyagerList = state.voyagerList.filter(
-        (i) => i._id !== action.payload._id
+        (i) => i._id !== action.payload._id,
       );
     });
     builder.addCase(reqtoSuperAdminDeleteUser.rejected, (state, action) => {
@@ -215,14 +229,14 @@ const SuperAdminSlice = createSlice({
       (state, action) => {
         state.countriesWiseCountryLoader = false;
         state.countriesWiseCountryList = action.payload?.data;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminCountriesWiseCountry.rejected,
       (state, action) => {
         state.countriesWiseCountryLoader = false;
         state.error = action.payload;
-      }
+      },
     );
 
     // reqtoSuperAdminGetPlace
@@ -246,7 +260,7 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminDeletePalce.fulfilled, (state, action) => {
       state.deleteLoader = false;
       state.placeList = state.placeList.filter(
-        (i) => i._id !== action.payload._id
+        (i) => i._id !== action.payload._id,
       );
     });
     builder.addCase(reqtoSuperAdminDeletePalce.rejected, (state, action) => {
@@ -298,9 +312,9 @@ const SuperAdminSlice = createSlice({
       (state, action) => {
         state.deleteLoader = false;
         state.locationList = state.locationList.filter(
-          (i) => i._id !== action.payload._id
+          (i) => i._id !== action.payload._id,
         );
-      }
+      },
     );
     builder.addCase(reqtoSuperAdminDeleteLocation.rejected, (state, action) => {
       state.deleteLoader = false;
@@ -337,14 +351,14 @@ const SuperAdminSlice = createSlice({
       (state, action) => {
         state.loader = false;
         state.eventCategoryList = action.payload?.data;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminGeteventCategory.rejected,
       (state, action) => {
         state.loader = false;
         state.error = action.payload;
-      }
+      },
     );
 
     // reqtoSuperAdminDeleteEventCategory
@@ -356,15 +370,15 @@ const SuperAdminSlice = createSlice({
       (state, action) => {
         state.deleteLoader = false;
         state.eventCategoryList = state.eventCategoryList.filter(
-          (i) => i._id !== action.payload._id
+          (i) => i._id !== action.payload._id,
         );
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminDeleteEventCategory.rejected,
       (state, action) => {
         state.deleteLoader = false;
-      }
+      },
     );
 
     // reqtoSuperAdminAddEventCategory
@@ -375,13 +389,13 @@ const SuperAdminSlice = createSlice({
       reqtoSuperAdminAddEventCategory.fulfilled,
       (state, action) => {
         state.eventCategoryLoader = false;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminAddEventCategory.rejected,
       (state, action) => {
         state.eventCategoryLoader = false;
-      }
+      },
     );
 
     // reqtoSuperAdminEditEventCategory
@@ -389,19 +403,19 @@ const SuperAdminSlice = createSlice({
       reqtoSuperAdminEditEventCategory.pending,
       (state, action) => {
         state.eventCategoryLoader = true;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminEditEventCategory.fulfilled,
       (state, action) => {
         state.eventCategoryLoader = false;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminEditEventCategory.rejected,
       (state, action) => {
         state.eventCategoryLoader = false;
-      }
+      },
     );
 
     // reqtoSuperAdminGetCategoryRequest
@@ -414,14 +428,14 @@ const SuperAdminSlice = createSlice({
       (state, action) => {
         state.loader = false;
         state.categoryRequestList = action.payload?.data;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminGetCategoryRequest.rejected,
       (state, action) => {
         state.loader = false;
         state.error = action.payload;
-      }
+      },
     );
 
     // reqtoSuperAdminUpdateCategoryRequest
@@ -433,14 +447,14 @@ const SuperAdminSlice = createSlice({
       reqtoSuperAdminUpdateCategoryRequest.fulfilled,
       (state, action) => {
         state.loader = false;
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminUpdateCategoryRequest.rejected,
       (state, action) => {
         state.loader = false;
         state.error = action.payload;
-      }
+      },
     );
 
     // reqtoSuperAdminStatusPlaces
@@ -451,7 +465,7 @@ const SuperAdminSlice = createSlice({
       state.placeList = state.placeList.map((i) =>
         i._id === action.payload._id
           ? { ...i, status: action.payload.status }
-          : i
+          : i,
       );
     });
     builder.addCase(reqtoSuperAdminStatusPlaces.rejected, (state, action) => {
@@ -468,15 +482,15 @@ const SuperAdminSlice = createSlice({
         state.locationList = state.locationList.map((i) =>
           i._id === action.payload._id
             ? { ...i, status: action.payload.status }
-            : i
+            : i,
         );
-      }
+      },
     );
     builder.addCase(
       reqtoSuperAdminStatusLocations.rejected,
       (state, action) => {
         state.error = action.payload;
-      }
+      },
     );
 
     // reqtoSuperAdminGetFaqs
@@ -500,7 +514,7 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminDeleteFaqs.fulfilled, (state, action) => {
       state.deleteFaqsLoader = false;
       state.faqsList = state.faqsList.filter(
-        (i) => i._id !== action.payload._id
+        (i) => i._id !== action.payload._id,
       );
     });
     builder.addCase(reqtoSuperAdminDeleteFaqs.rejected, (state, action) => {
@@ -550,7 +564,7 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminDeletePolicy.fulfilled, (state, action) => {
       state.deletePolicyLoader = false;
       state.policyList = state.policyList.filter(
-        (i) => i._id !== action.payload._id
+        (i) => i._id !== action.payload._id,
       );
     });
     builder.addCase(reqtoSuperAdminDeletePolicy.rejected, (state, action) => {
@@ -638,7 +652,7 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminDeleteTeam.fulfilled, (state, action) => {
       state.deleteTeamLoader = false;
       state.teamList = state.teamList.filter(
-        (i) => i._id !== action.payload._id
+        (i) => i._id !== action.payload._id,
       );
     });
     builder.addCase(reqtoSuperAdminDeleteTeam.rejected, (state, action) => {
@@ -653,7 +667,7 @@ const SuperAdminSlice = createSlice({
       state.teamList = state.teamList.map((i) =>
         i._id === action.payload._id
           ? { ...i, status: action.payload.status }
-          : i
+          : i,
       );
     });
     builder.addCase(reqtoSuperAdminStatusTeam.rejected, (state, action) => {
@@ -708,6 +722,102 @@ const SuperAdminSlice = createSlice({
     builder.addCase(reqtoSuperAdminEditSettings.rejected, (state, action) => {
       state.editSettingsLoader = false;
     });
+    // reqtoSuperAdminGetNotifications
+    builder.addCase(reqtoSuperAdminGetNotifications.pending, (state) => {
+      state.notificationLoader = true;
+      state.error = null;
+    });
+    builder.addCase(
+      reqtoSuperAdminGetNotifications.fulfilled,
+      (state, action) => {
+        state.notificationLoader = false;
+        state.notificationList = action.payload?.data || [];
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminGetNotifications.rejected,
+      (state, action) => {
+        state.notificationLoader = false;
+        state.error = action.payload;
+      },
+    );
+
+    // reqtoSuperAdminGetNotificationDetail
+    builder.addCase(reqtoSuperAdminGetNotificationDetail.pending, (state) => {
+      state.notificationDetailLoader = true;
+      state.error = null;
+    });
+    builder.addCase(
+      reqtoSuperAdminGetNotificationDetail.fulfilled,
+      (state, action) => {
+        state.notificationDetailLoader = false;
+        state.notificationDetail = action.payload?.data;
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminGetNotificationDetail.rejected,
+      (state, action) => {
+        state.notificationDetailLoader = false;
+        state.error = action.payload;
+      },
+    );
+
+    // reqtoSuperAdminAddNotification
+    builder.addCase(reqtoSuperAdminAddNotification.pending, (state) => {
+      state.addNotificationLoader = true;
+    });
+    builder.addCase(
+      reqtoSuperAdminAddNotification.fulfilled,
+      (state, action) => {
+        state.addNotificationLoader = false;
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminAddNotification.rejected,
+      (state, action) => {
+        state.addNotificationLoader = false;
+      },
+    );
+
+    // reqtoSuperAdminEditNotification
+    builder.addCase(
+      reqtoSuperAdminEditNotification.pending,
+      (state, action) => {
+        state.editNotificationLoader = true;
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminEditNotification.fulfilled,
+      (state, action) => {
+        state.editNotificationLoader = false;
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminEditNotification.rejected,
+      (state, action) => {
+        state.editNotificationLoader = false;
+      },
+    );
+
+    // reqtoSuperAdminDeleteNotification
+    builder.addCase(reqtoSuperAdminDeleteNotification.pending, (state) => {
+      state.deleteNotificationLoader = true;
+    });
+    builder.addCase(
+      reqtoSuperAdminDeleteNotification.fulfilled,
+      (state, action) => {
+        state.deleteNotificationLoader = false;
+        state.notificationList = state.notificationList.filter(
+          (i) => i._id !== action.payload._id,
+        );
+      },
+    );
+    builder.addCase(
+      reqtoSuperAdminDeleteNotification.rejected,
+      (state, action) => {
+        state.deleteNotificationLoader = false;
+      },
+    );
   },
 });
 

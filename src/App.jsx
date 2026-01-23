@@ -24,6 +24,7 @@ import SuperAdminFaq from "./pages/super-admin/faq/Faq";
 import SuperAdminPolicies from "./pages/super-admin/policies/Policies";
 import SuperAdminSetting from "./pages/super-admin/setting/Setting";
 import SuperAdminHelpCenter from "./pages/super-admin/help/HelpCenter";
+import SuperAdminNotification from "./pages/super-admin/notification/Notification";
 
 function App() {
   return (
@@ -129,7 +130,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-            <Route
+          <Route
             path="/superadmin/setting"
             element={
               <ProtectedRoute type="superadmin">
@@ -138,6 +139,14 @@ function App() {
             }
           />
 
+          <Route
+            path="/superadmin/notification"
+            element={
+              <ProtectedRoute type="superadmin">
+                <SuperAdminNotification />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/superadmin/help-center"
             element={

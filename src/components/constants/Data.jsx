@@ -8,6 +8,7 @@ import TeamRole from "../../assets/images/team-role.svg";
 import faq from "../../assets/images/faq.svg";
 import Policies from "../../assets/images/policies.svg";
 import setting from "../../assets/images/setting.svg";
+import notification from "../../assets/images/notification.svg";
 import help_center from "../../assets/images/help_center.svg";
 import { DashboardIcon, EyeManVoyagerIcon } from "../../assets/IconsList";
 import { CampaignIcon } from './../../assets/IconsList';
@@ -95,6 +96,17 @@ export const SidebarData = {
         />
       ),
       route: "/superadmin/setting",
+    },
+    {
+      label: "Notification",
+      icon: (
+        <img
+          src={notification}
+          alt="notification"
+          className="img-fluid"
+        />
+      ),
+      route: "/superadmin/notification",
     },
     {
       label: "Help Center",

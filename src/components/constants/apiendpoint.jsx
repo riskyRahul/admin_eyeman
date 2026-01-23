@@ -73,4 +73,11 @@ export const apiendpoints = {
   GetSettings: "/admin/v2/setting/list",
   AddSettings: "/admin/v2/setting/add",
   EditSettings: "/admin/v2/setting/edit/:id",
+
+  // notifications
+  GetNotifications: "/admin/v2/notification/list",
+  DetailNotification: "/admin/v2/notification/detail/:id",
+  AddNotification: "/admin/v2/notification/set",
+  EditNotification: "/admin/v2/notification/edit/:id",
+  DeleteNotification: "/admin/v2/notification/delete/:id",
 };
